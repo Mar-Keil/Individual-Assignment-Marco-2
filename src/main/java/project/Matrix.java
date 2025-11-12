@@ -3,30 +3,44 @@ package project;
 import java.util.Random;
 
 public class Matrix {
-    static int n = 1024;
-    static double[][] a = new double[n][n];
-    static double[][] b = new double[n][n];
-    static double[][] c = new double[n][n];
 
-    public void compile() {
-        Random random = new Random();
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                a[i][j] = random.nextDouble();
-                b[i][j] = random.nextDouble();
-                c[i][j] = 0;
+    private final int size;
+    private final double[][] a;
+    private final double[][] b;
+    private final double[][] c;
+
+    public Matrix (Random rnd, int size) {
+        this.size = size;
+        this.a = new double[size][size];
+        this.b = new double[size][size];
+        this.c = new double[size][size];
+        for (int r = 0; r < size; r++) {
+            for (int j = 0; j < size; j++) {
+                this.a[r][j] = rnd.nextDouble();
+                this.b[r][j] = rnd.nextDouble();
             }
         }
+    }
 
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                for (int k = 0; k < n; k++) {
+    public void clearC(){
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
+                this.c[r][c] = 0;
+            }
+        }
+    }
+
+    public void multiply() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                for (int k = 0; k < size; k++) {
                     c[i][j] += a[i][k] * b[k][j];
                 }
             }
         }
-        long stop = System.currentTimeMillis();
-        System.out.println((stop-start) * 1e-3);
+    }
+
+    public double peek() {
+        return c[0][0];
     }
 }
