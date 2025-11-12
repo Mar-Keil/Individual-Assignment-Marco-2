@@ -8,7 +8,7 @@ public class Matrix {
     static double[][] b = new double[n][n];
     static double[][] c = new double[n][n];
 
-    public static void main(String[] args) {
+    public void compile() {
         Random random = new Random();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
