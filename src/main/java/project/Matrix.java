@@ -22,20 +22,14 @@ public class Matrix {
         }
     }
 
-    public void clearC(){
-        for (int r = 0; r < size; r++) {
-            for (int c = 0; c < size; c++) {
-                this.c[r][c] = 0;
-            }
-        }
-    }
-
     public void multiply() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
+                double s = 0;
                 for (int k = 0; k < size; k++) {
-                    c[i][j] += a[i][k] * b[k][j];
+                    s += a[i][k] * b[k][j];
                 }
+                c[i][j] = s;
             }
         }
     }
