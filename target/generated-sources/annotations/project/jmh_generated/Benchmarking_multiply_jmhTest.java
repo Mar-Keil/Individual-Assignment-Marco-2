@@ -75,7 +75,7 @@ public final class Benchmarking_multiply_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (!l_benchmarking0_G.readyIteration) {
-                        l_benchmarking0_G.setupInvocation();
+                        l_benchmarking0_G.setupIteration();
                         l_benchmarking0_G.readyIteration = true;
                     }
                 } catch (Throwable t) {
@@ -319,7 +319,7 @@ public final class Benchmarking_multiply_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (!l_benchmarking0_G.readyIteration) {
-                        l_benchmarking0_G.setupInvocation();
+                        l_benchmarking0_G.setupIteration();
                         l_benchmarking0_G.readyIteration = true;
                     }
                 } catch (Throwable t) {
@@ -563,7 +563,7 @@ public final class Benchmarking_multiply_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (!l_benchmarking0_G.readyIteration) {
-                        l_benchmarking0_G.setupInvocation();
+                        l_benchmarking0_G.setupIteration();
                         l_benchmarking0_G.readyIteration = true;
                     }
                 } catch (Throwable t) {
@@ -826,7 +826,7 @@ public final class Benchmarking_multiply_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (!l_benchmarking0_G.readyIteration) {
-                        l_benchmarking0_G.setupInvocation();
+                        l_benchmarking0_G.setupIteration();
                         l_benchmarking0_G.readyIteration = true;
                     }
                 } catch (Throwable t) {
