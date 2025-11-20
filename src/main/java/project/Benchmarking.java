@@ -25,9 +25,10 @@ public class Benchmarking {
     private final SystemInfo si;
     private final GlobalMemory memory;
 
-    long realBefore;
-    long cpuBefore;
+    private long realBefore;
+    private long cpuBefore;
 
+    private long initUsedMb;
     private final int MB = 1024 * 1024;
 
     public Benchmarking() {
@@ -36,7 +37,7 @@ public class Benchmarking {
         memory = si.getHardware().getMemory();
 
         var proc = si.getOperatingSystem().getCurrentProcess();
-        long initUsedMb  = (proc == null ? 0L : proc.getResidentSetSize() / MB);
+        initUsedMb  = (proc == null ? 0L : proc.getResidentSetSize() / MB);
         long totalMb = memory.getTotal() / MB;
 
         System.out.printf(
@@ -69,9 +70,13 @@ public class Benchmarking {
 
     @TearDown(Level.Iteration)
     public void tearDownInvocation(ExtraMetrics x) {
+
+        var proc = si.getOperatingSystem().getCurrentProcess();
+
         long cpuAfter  = os.getProcessCpuTime();
         long realAfter = System.nanoTime();
-        //x.addCPU((double)(cpuAfter - cpuBefore) / (double)(realAfter - realBefore));
+
+        x.RAM = (proc == null ? 0L : (proc.getResidentSetSize() / MB) - initUsedMb);
         x.CPU = (double)(cpuAfter - cpuBefore) / (double)(realAfter - realBefore);
     }
 }

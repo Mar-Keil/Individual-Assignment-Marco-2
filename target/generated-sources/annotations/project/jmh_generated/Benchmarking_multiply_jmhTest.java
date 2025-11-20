@@ -94,7 +94,7 @@ public final class Benchmarking_multiply_jmhTest {
             }
 
             l_extrametrics1_0.CPU = 0;
-            l_extrametrics1_0.ram = 0;
+            l_extrametrics1_0.RAM = 0;
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
@@ -174,7 +174,7 @@ public final class Benchmarking_multiply_jmhTest {
             BenchmarkTaskResult results = new BenchmarkTaskResult((long)res.allOps, (long)res.measuredOps);
             results.add(new ThroughputResult(ResultRole.PRIMARY, "multiply", res.measuredOps, res.getTime(), benchmarkParams.getTimeUnit()));
             results.add(new ScalarResult("CPU", l_extrametrics1_0.CPU, "#", AggregationPolicy.SUM));
-            results.add(new ScalarResult("ram", l_extrametrics1_0.ram, "#", AggregationPolicy.SUM));
+            results.add(new ScalarResult("RAM", l_extrametrics1_0.RAM, "#", AggregationPolicy.SUM));
             this.blackhole.evaporate("Yes, I am Stephen Hawking, and know a thing or two about black holes.");
             return results;
         } else
@@ -230,7 +230,7 @@ public final class Benchmarking_multiply_jmhTest {
             }
 
             l_extrametrics1_0.CPU = 0;
-            l_extrametrics1_0.ram = 0;
+            l_extrametrics1_0.RAM = 0;
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
@@ -310,7 +310,7 @@ public final class Benchmarking_multiply_jmhTest {
             BenchmarkTaskResult results = new BenchmarkTaskResult((long)res.allOps, (long)res.measuredOps);
             results.add(new AverageTimeResult(ResultRole.PRIMARY, "multiply", res.measuredOps, res.getTime(), benchmarkParams.getTimeUnit()));
             results.add(new ScalarResult("CPU", l_extrametrics1_0.CPU, "#", AggregationPolicy.SUM));
-            results.add(new ScalarResult("ram", l_extrametrics1_0.ram, "#", AggregationPolicy.SUM));
+            results.add(new ScalarResult("RAM", l_extrametrics1_0.RAM, "#", AggregationPolicy.SUM));
             this.blackhole.evaporate("Yes, I am Stephen Hawking, and know a thing or two about black holes.");
             return results;
         } else
@@ -366,7 +366,7 @@ public final class Benchmarking_multiply_jmhTest {
             }
 
             l_extrametrics1_0.CPU = 0;
-            l_extrametrics1_0.ram = 0;
+            l_extrametrics1_0.RAM = 0;
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
@@ -447,7 +447,7 @@ public final class Benchmarking_multiply_jmhTest {
             BenchmarkTaskResult results = new BenchmarkTaskResult((long)res.allOps, (long)res.measuredOps);
             results.add(new SampleTimeResult(ResultRole.PRIMARY, "multiply", buffer, benchmarkParams.getTimeUnit()));
             results.add(new ScalarResult("CPU", l_extrametrics1_0.CPU, "#", AggregationPolicy.SUM));
-            results.add(new ScalarResult("ram", l_extrametrics1_0.ram, "#", AggregationPolicy.SUM));
+            results.add(new ScalarResult("RAM", l_extrametrics1_0.RAM, "#", AggregationPolicy.SUM));
             this.blackhole.evaporate("Yes, I am Stephen Hawking, and know a thing or two about black holes.");
             return results;
         } else
@@ -521,7 +521,7 @@ public final class Benchmarking_multiply_jmhTest {
             }
 
             l_extrametrics1_0.CPU = 0;
-            l_extrametrics1_0.ram = 0;
+            l_extrametrics1_0.RAM = 0;
 
             notifyControl.startMeasurement = true;
             RawResults res = new RawResults();
@@ -580,7 +580,7 @@ public final class Benchmarking_multiply_jmhTest {
             BenchmarkTaskResult results = new BenchmarkTaskResult(totalOps, totalOps);
             results.add(new SingleShotResult(ResultRole.PRIMARY, "multiply", res.getTime(), totalOps, benchmarkParams.getTimeUnit()));
             results.add(new ScalarResult("CPU", l_extrametrics1_0.CPU, "#", AggregationPolicy.SUM));
-            results.add(new ScalarResult("ram", l_extrametrics1_0.ram, "#", AggregationPolicy.SUM));
+            results.add(new ScalarResult("RAM", l_extrametrics1_0.RAM, "#", AggregationPolicy.SUM));
             this.blackhole.evaporate("Yes, I am Stephen Hawking, and know a thing or two about black holes.");
             return results;
         } else
