@@ -33,6 +33,7 @@ import org.openjdk.jmh.results.AggregationPolicy;
 import org.openjdk.jmh.runner.FailureAssistException;
 
 import project.jmh_generated.Benchmarking_jmhType;
+import project.jmh_generated.ExtraMetrics_jmhType;
 public final class Benchmarking_multiply_jmhTest {
 
     byte p000, p001, p002, p003, p004, p005, p006, p007, p008, p009, p010, p011, p012, p013, p014, p015;
@@ -68,14 +69,15 @@ public final class Benchmarking_multiply_jmhTest {
         }
         if (threadParams.getSubgroupIndex() == 0) {
             RawResults res = new RawResults();
-            Benchmarking_jmhType l_benchmarking0_G = _jmh_tryInit_f_benchmarking0_G(control);
+            ExtraMetrics_jmhType l_extrametrics1_0 = _jmh_tryInit_f_extrametrics1_0(control);
+            Benchmarking_jmhType l_benchmarking0_G = _jmh_tryInit_f_benchmarking0_G(control, l_extrametrics1_0);
 
             control.preSetup();
             if (Benchmarking_jmhType.setupIterationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (!l_benchmarking0_G.readyIteration) {
-                        l_benchmarking0_G.setupInvocation();
+                        l_benchmarking0_G.setupIteration();
                         l_benchmarking0_G.readyIteration = true;
                     }
                 } catch (Throwable t) {
@@ -91,95 +93,23 @@ public final class Benchmarking_multiply_jmhTest {
                 }
             }
 
+            l_extrametrics1_0.CPU = 0;
+            l_extrametrics1_0.ram = 0;
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
-                if (Benchmarking_jmhType.setupInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                    try {
-                        if (control.isFailing) throw new FailureAssistException();
-                        if (!l_benchmarking0_G.readyInvocation) {
-                            l_benchmarking0_G.readyInvocation = true;
-                        }
-                    } catch (Throwable t) {
-                        control.isFailing = true;
-                        throw t;
-                    } finally {
-                        Benchmarking_jmhType.setupInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                    }
-                } else {
-                    while (Benchmarking_jmhType.setupInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                        if (control.isFailing) throw new FailureAssistException();
-                        if (Thread.interrupted()) throw new InterruptedException();
-                    }
-                }
                 l_benchmarking0_G.multiply(blackhole);
-                if (Benchmarking_jmhType.tearInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                    try {
-                        if (control.isFailing) throw new FailureAssistException();
-                        if (l_benchmarking0_G.readyInvocation) {
-                            l_benchmarking0_G.tearDownInvocation();
-                            l_benchmarking0_G.readyInvocation = false;
-                        }
-                    } catch (Throwable t) {
-                        control.isFailing = true;
-                        throw t;
-                    } finally {
-                        Benchmarking_jmhType.tearInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                    }
-                } else {
-                    while (Benchmarking_jmhType.tearInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                        if (control.isFailing) throw new FailureAssistException();
-                        if (Thread.interrupted()) throw new InterruptedException();
-                    }
-                }
                 if (control.shouldYield) Thread.yield();
                 res.allOps++;
             }
 
             notifyControl.startMeasurement = true;
-            multiply_thrpt_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, l_benchmarking0_G);
+            multiply_thrpt_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, l_benchmarking0_G, l_extrametrics1_0);
             notifyControl.stopMeasurement = true;
             control.announceWarmdownReady();
             try {
                 while (control.warmdownShouldWait) {
-                    if (Benchmarking_jmhType.setupInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                        try {
-                            if (control.isFailing) throw new FailureAssistException();
-                            if (!l_benchmarking0_G.readyInvocation) {
-                                l_benchmarking0_G.readyInvocation = true;
-                            }
-                        } catch (Throwable t) {
-                            control.isFailing = true;
-                            throw t;
-                        } finally {
-                            Benchmarking_jmhType.setupInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                        }
-                    } else {
-                        while (Benchmarking_jmhType.setupInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                            if (control.isFailing) throw new FailureAssistException();
-                            if (Thread.interrupted()) throw new InterruptedException();
-                        }
-                    }
                     l_benchmarking0_G.multiply(blackhole);
-                    if (Benchmarking_jmhType.tearInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                        try {
-                            if (control.isFailing) throw new FailureAssistException();
-                            if (l_benchmarking0_G.readyInvocation) {
-                                l_benchmarking0_G.tearDownInvocation();
-                                l_benchmarking0_G.readyInvocation = false;
-                            }
-                        } catch (Throwable t) {
-                            control.isFailing = true;
-                            throw t;
-                        } finally {
-                            Benchmarking_jmhType.tearInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                        }
-                    } else {
-                        while (Benchmarking_jmhType.tearInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                            if (control.isFailing) throw new FailureAssistException();
-                            if (Thread.interrupted()) throw new InterruptedException();
-                        }
-                    }
                     if (control.shouldYield) Thread.yield();
                     res.allOps++;
                 }
@@ -191,7 +121,7 @@ public final class Benchmarking_multiply_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (l_benchmarking0_G.readyIteration) {
-                        l_benchmarking0_G.tearDownIteration();
+                        l_benchmarking0_G.tearDownInvocation(l_extrametrics1_0);
                         l_benchmarking0_G.readyIteration = false;
                     }
                 } catch (Throwable t) {
@@ -212,7 +142,6 @@ public final class Benchmarking_multiply_jmhTest {
                     try {
                         if (control.isFailing) throw new FailureAssistException();
                         if (l_benchmarking0_G.readyTrial) {
-                            l_benchmarking0_G.tearDownTrial();
                             l_benchmarking0_G.readyTrial = false;
                         }
                     } catch (Throwable t) {
@@ -233,6 +162,7 @@ public final class Benchmarking_multiply_jmhTest {
                 synchronized(this.getClass()) {
                     f_benchmarking0_G = null;
                 }
+                f_extrametrics1_0 = null;
             }
             res.allOps += res.measuredOps;
             int batchSize = iterationParams.getBatchSize();
@@ -243,57 +173,20 @@ public final class Benchmarking_multiply_jmhTest {
             res.measuredOps /= batchSize;
             BenchmarkTaskResult results = new BenchmarkTaskResult((long)res.allOps, (long)res.measuredOps);
             results.add(new ThroughputResult(ResultRole.PRIMARY, "multiply", res.measuredOps, res.getTime(), benchmarkParams.getTimeUnit()));
+            results.add(new ScalarResult("CPU", l_extrametrics1_0.CPU, "#", AggregationPolicy.SUM));
+            results.add(new ScalarResult("ram", l_extrametrics1_0.ram, "#", AggregationPolicy.SUM));
             this.blackhole.evaporate("Yes, I am Stephen Hawking, and know a thing or two about black holes.");
             return results;
         } else
             throw new IllegalStateException("Harness failed to distribute threads among groups properly");
     }
 
-    public static void multiply_thrpt_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, Benchmarking_jmhType l_benchmarking0_G) throws Throwable {
+    public static void multiply_thrpt_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, Benchmarking_jmhType l_benchmarking0_G, ExtraMetrics_jmhType l_extrametrics1_0) throws Throwable {
         long operations = 0;
         long realTime = 0;
         result.startTime = System.nanoTime();
         do {
-            if (Benchmarking_jmhType.setupInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                try {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (!l_benchmarking0_G.readyInvocation) {
-                        l_benchmarking0_G.readyInvocation = true;
-                    }
-                } catch (Throwable t) {
-                    control.isFailing = true;
-                    throw t;
-                } finally {
-                    Benchmarking_jmhType.setupInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                }
-            } else {
-                while (Benchmarking_jmhType.setupInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (Thread.interrupted()) throw new InterruptedException();
-                }
-            }
-            long rt = System.nanoTime();
             l_benchmarking0_G.multiply(blackhole);
-            realTime += (System.nanoTime() - rt);
-            if (Benchmarking_jmhType.tearInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                try {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (l_benchmarking0_G.readyInvocation) {
-                        l_benchmarking0_G.tearDownInvocation();
-                        l_benchmarking0_G.readyInvocation = false;
-                    }
-                } catch (Throwable t) {
-                    control.isFailing = true;
-                    throw t;
-                } finally {
-                    Benchmarking_jmhType.tearInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                }
-            } else {
-                while (Benchmarking_jmhType.tearInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (Thread.interrupted()) throw new InterruptedException();
-                }
-            }
             operations++;
         } while(!control.isDone);
         result.stopTime = System.nanoTime();
@@ -312,14 +205,15 @@ public final class Benchmarking_multiply_jmhTest {
         }
         if (threadParams.getSubgroupIndex() == 0) {
             RawResults res = new RawResults();
-            Benchmarking_jmhType l_benchmarking0_G = _jmh_tryInit_f_benchmarking0_G(control);
+            ExtraMetrics_jmhType l_extrametrics1_0 = _jmh_tryInit_f_extrametrics1_0(control);
+            Benchmarking_jmhType l_benchmarking0_G = _jmh_tryInit_f_benchmarking0_G(control, l_extrametrics1_0);
 
             control.preSetup();
             if (Benchmarking_jmhType.setupIterationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (!l_benchmarking0_G.readyIteration) {
-                        l_benchmarking0_G.setupInvocation();
+                        l_benchmarking0_G.setupIteration();
                         l_benchmarking0_G.readyIteration = true;
                     }
                 } catch (Throwable t) {
@@ -335,95 +229,23 @@ public final class Benchmarking_multiply_jmhTest {
                 }
             }
 
+            l_extrametrics1_0.CPU = 0;
+            l_extrametrics1_0.ram = 0;
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
-                if (Benchmarking_jmhType.setupInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                    try {
-                        if (control.isFailing) throw new FailureAssistException();
-                        if (!l_benchmarking0_G.readyInvocation) {
-                            l_benchmarking0_G.readyInvocation = true;
-                        }
-                    } catch (Throwable t) {
-                        control.isFailing = true;
-                        throw t;
-                    } finally {
-                        Benchmarking_jmhType.setupInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                    }
-                } else {
-                    while (Benchmarking_jmhType.setupInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                        if (control.isFailing) throw new FailureAssistException();
-                        if (Thread.interrupted()) throw new InterruptedException();
-                    }
-                }
                 l_benchmarking0_G.multiply(blackhole);
-                if (Benchmarking_jmhType.tearInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                    try {
-                        if (control.isFailing) throw new FailureAssistException();
-                        if (l_benchmarking0_G.readyInvocation) {
-                            l_benchmarking0_G.tearDownInvocation();
-                            l_benchmarking0_G.readyInvocation = false;
-                        }
-                    } catch (Throwable t) {
-                        control.isFailing = true;
-                        throw t;
-                    } finally {
-                        Benchmarking_jmhType.tearInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                    }
-                } else {
-                    while (Benchmarking_jmhType.tearInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                        if (control.isFailing) throw new FailureAssistException();
-                        if (Thread.interrupted()) throw new InterruptedException();
-                    }
-                }
                 if (control.shouldYield) Thread.yield();
                 res.allOps++;
             }
 
             notifyControl.startMeasurement = true;
-            multiply_avgt_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, l_benchmarking0_G);
+            multiply_avgt_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, l_benchmarking0_G, l_extrametrics1_0);
             notifyControl.stopMeasurement = true;
             control.announceWarmdownReady();
             try {
                 while (control.warmdownShouldWait) {
-                    if (Benchmarking_jmhType.setupInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                        try {
-                            if (control.isFailing) throw new FailureAssistException();
-                            if (!l_benchmarking0_G.readyInvocation) {
-                                l_benchmarking0_G.readyInvocation = true;
-                            }
-                        } catch (Throwable t) {
-                            control.isFailing = true;
-                            throw t;
-                        } finally {
-                            Benchmarking_jmhType.setupInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                        }
-                    } else {
-                        while (Benchmarking_jmhType.setupInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                            if (control.isFailing) throw new FailureAssistException();
-                            if (Thread.interrupted()) throw new InterruptedException();
-                        }
-                    }
                     l_benchmarking0_G.multiply(blackhole);
-                    if (Benchmarking_jmhType.tearInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                        try {
-                            if (control.isFailing) throw new FailureAssistException();
-                            if (l_benchmarking0_G.readyInvocation) {
-                                l_benchmarking0_G.tearDownInvocation();
-                                l_benchmarking0_G.readyInvocation = false;
-                            }
-                        } catch (Throwable t) {
-                            control.isFailing = true;
-                            throw t;
-                        } finally {
-                            Benchmarking_jmhType.tearInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                        }
-                    } else {
-                        while (Benchmarking_jmhType.tearInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                            if (control.isFailing) throw new FailureAssistException();
-                            if (Thread.interrupted()) throw new InterruptedException();
-                        }
-                    }
                     if (control.shouldYield) Thread.yield();
                     res.allOps++;
                 }
@@ -435,7 +257,7 @@ public final class Benchmarking_multiply_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (l_benchmarking0_G.readyIteration) {
-                        l_benchmarking0_G.tearDownIteration();
+                        l_benchmarking0_G.tearDownInvocation(l_extrametrics1_0);
                         l_benchmarking0_G.readyIteration = false;
                     }
                 } catch (Throwable t) {
@@ -456,7 +278,6 @@ public final class Benchmarking_multiply_jmhTest {
                     try {
                         if (control.isFailing) throw new FailureAssistException();
                         if (l_benchmarking0_G.readyTrial) {
-                            l_benchmarking0_G.tearDownTrial();
                             l_benchmarking0_G.readyTrial = false;
                         }
                     } catch (Throwable t) {
@@ -477,6 +298,7 @@ public final class Benchmarking_multiply_jmhTest {
                 synchronized(this.getClass()) {
                     f_benchmarking0_G = null;
                 }
+                f_extrametrics1_0 = null;
             }
             res.allOps += res.measuredOps;
             int batchSize = iterationParams.getBatchSize();
@@ -487,57 +309,20 @@ public final class Benchmarking_multiply_jmhTest {
             res.measuredOps /= batchSize;
             BenchmarkTaskResult results = new BenchmarkTaskResult((long)res.allOps, (long)res.measuredOps);
             results.add(new AverageTimeResult(ResultRole.PRIMARY, "multiply", res.measuredOps, res.getTime(), benchmarkParams.getTimeUnit()));
+            results.add(new ScalarResult("CPU", l_extrametrics1_0.CPU, "#", AggregationPolicy.SUM));
+            results.add(new ScalarResult("ram", l_extrametrics1_0.ram, "#", AggregationPolicy.SUM));
             this.blackhole.evaporate("Yes, I am Stephen Hawking, and know a thing or two about black holes.");
             return results;
         } else
             throw new IllegalStateException("Harness failed to distribute threads among groups properly");
     }
 
-    public static void multiply_avgt_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, Benchmarking_jmhType l_benchmarking0_G) throws Throwable {
+    public static void multiply_avgt_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, Benchmarking_jmhType l_benchmarking0_G, ExtraMetrics_jmhType l_extrametrics1_0) throws Throwable {
         long operations = 0;
         long realTime = 0;
         result.startTime = System.nanoTime();
         do {
-            if (Benchmarking_jmhType.setupInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                try {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (!l_benchmarking0_G.readyInvocation) {
-                        l_benchmarking0_G.readyInvocation = true;
-                    }
-                } catch (Throwable t) {
-                    control.isFailing = true;
-                    throw t;
-                } finally {
-                    Benchmarking_jmhType.setupInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                }
-            } else {
-                while (Benchmarking_jmhType.setupInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (Thread.interrupted()) throw new InterruptedException();
-                }
-            }
-            long rt = System.nanoTime();
             l_benchmarking0_G.multiply(blackhole);
-            realTime += (System.nanoTime() - rt);
-            if (Benchmarking_jmhType.tearInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                try {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (l_benchmarking0_G.readyInvocation) {
-                        l_benchmarking0_G.tearDownInvocation();
-                        l_benchmarking0_G.readyInvocation = false;
-                    }
-                } catch (Throwable t) {
-                    control.isFailing = true;
-                    throw t;
-                } finally {
-                    Benchmarking_jmhType.tearInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                }
-            } else {
-                while (Benchmarking_jmhType.tearInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (Thread.interrupted()) throw new InterruptedException();
-                }
-            }
             operations++;
         } while(!control.isDone);
         result.stopTime = System.nanoTime();
@@ -556,14 +341,15 @@ public final class Benchmarking_multiply_jmhTest {
         }
         if (threadParams.getSubgroupIndex() == 0) {
             RawResults res = new RawResults();
-            Benchmarking_jmhType l_benchmarking0_G = _jmh_tryInit_f_benchmarking0_G(control);
+            ExtraMetrics_jmhType l_extrametrics1_0 = _jmh_tryInit_f_extrametrics1_0(control);
+            Benchmarking_jmhType l_benchmarking0_G = _jmh_tryInit_f_benchmarking0_G(control, l_extrametrics1_0);
 
             control.preSetup();
             if (Benchmarking_jmhType.setupIterationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (!l_benchmarking0_G.readyIteration) {
-                        l_benchmarking0_G.setupInvocation();
+                        l_benchmarking0_G.setupIteration();
                         l_benchmarking0_G.readyIteration = true;
                     }
                 } catch (Throwable t) {
@@ -579,47 +365,12 @@ public final class Benchmarking_multiply_jmhTest {
                 }
             }
 
+            l_extrametrics1_0.CPU = 0;
+            l_extrametrics1_0.ram = 0;
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
-                if (Benchmarking_jmhType.setupInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                    try {
-                        if (control.isFailing) throw new FailureAssistException();
-                        if (!l_benchmarking0_G.readyInvocation) {
-                            l_benchmarking0_G.readyInvocation = true;
-                        }
-                    } catch (Throwable t) {
-                        control.isFailing = true;
-                        throw t;
-                    } finally {
-                        Benchmarking_jmhType.setupInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                    }
-                } else {
-                    while (Benchmarking_jmhType.setupInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                        if (control.isFailing) throw new FailureAssistException();
-                        if (Thread.interrupted()) throw new InterruptedException();
-                    }
-                }
                 l_benchmarking0_G.multiply(blackhole);
-                if (Benchmarking_jmhType.tearInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                    try {
-                        if (control.isFailing) throw new FailureAssistException();
-                        if (l_benchmarking0_G.readyInvocation) {
-                            l_benchmarking0_G.tearDownInvocation();
-                            l_benchmarking0_G.readyInvocation = false;
-                        }
-                    } catch (Throwable t) {
-                        control.isFailing = true;
-                        throw t;
-                    } finally {
-                        Benchmarking_jmhType.tearInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                    }
-                } else {
-                    while (Benchmarking_jmhType.tearInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                        if (control.isFailing) throw new FailureAssistException();
-                        if (Thread.interrupted()) throw new InterruptedException();
-                    }
-                }
                 if (control.shouldYield) Thread.yield();
                 res.allOps++;
             }
@@ -629,49 +380,12 @@ public final class Benchmarking_multiply_jmhTest {
             int batchSize = iterationParams.getBatchSize();
             int opsPerInv = benchmarkParams.getOpsPerInvocation();
             SampleBuffer buffer = new SampleBuffer();
-            multiply_sample_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, buffer, targetSamples, opsPerInv, batchSize, l_benchmarking0_G);
+            multiply_sample_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, buffer, targetSamples, opsPerInv, batchSize, l_benchmarking0_G, l_extrametrics1_0);
             notifyControl.stopMeasurement = true;
             control.announceWarmdownReady();
             try {
                 while (control.warmdownShouldWait) {
-                    if (Benchmarking_jmhType.setupInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                        try {
-                            if (control.isFailing) throw new FailureAssistException();
-                            if (!l_benchmarking0_G.readyInvocation) {
-                                l_benchmarking0_G.readyInvocation = true;
-                            }
-                        } catch (Throwable t) {
-                            control.isFailing = true;
-                            throw t;
-                        } finally {
-                            Benchmarking_jmhType.setupInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                        }
-                    } else {
-                        while (Benchmarking_jmhType.setupInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                            if (control.isFailing) throw new FailureAssistException();
-                            if (Thread.interrupted()) throw new InterruptedException();
-                        }
-                    }
                     l_benchmarking0_G.multiply(blackhole);
-                    if (Benchmarking_jmhType.tearInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                        try {
-                            if (control.isFailing) throw new FailureAssistException();
-                            if (l_benchmarking0_G.readyInvocation) {
-                                l_benchmarking0_G.tearDownInvocation();
-                                l_benchmarking0_G.readyInvocation = false;
-                            }
-                        } catch (Throwable t) {
-                            control.isFailing = true;
-                            throw t;
-                        } finally {
-                            Benchmarking_jmhType.tearInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                        }
-                    } else {
-                        while (Benchmarking_jmhType.tearInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                            if (control.isFailing) throw new FailureAssistException();
-                            if (Thread.interrupted()) throw new InterruptedException();
-                        }
-                    }
                     if (control.shouldYield) Thread.yield();
                     res.allOps++;
                 }
@@ -683,7 +397,7 @@ public final class Benchmarking_multiply_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (l_benchmarking0_G.readyIteration) {
-                        l_benchmarking0_G.tearDownIteration();
+                        l_benchmarking0_G.tearDownInvocation(l_extrametrics1_0);
                         l_benchmarking0_G.readyIteration = false;
                     }
                 } catch (Throwable t) {
@@ -704,7 +418,6 @@ public final class Benchmarking_multiply_jmhTest {
                     try {
                         if (control.isFailing) throw new FailureAssistException();
                         if (l_benchmarking0_G.readyTrial) {
-                            l_benchmarking0_G.tearDownTrial();
                             l_benchmarking0_G.readyTrial = false;
                         }
                     } catch (Throwable t) {
@@ -725,6 +438,7 @@ public final class Benchmarking_multiply_jmhTest {
                 synchronized(this.getClass()) {
                     f_benchmarking0_G = null;
                 }
+                f_extrametrics1_0 = null;
             }
             res.allOps += res.measuredOps * batchSize;
             res.allOps *= opsPerInv;
@@ -732,13 +446,15 @@ public final class Benchmarking_multiply_jmhTest {
             res.measuredOps *= opsPerInv;
             BenchmarkTaskResult results = new BenchmarkTaskResult((long)res.allOps, (long)res.measuredOps);
             results.add(new SampleTimeResult(ResultRole.PRIMARY, "multiply", buffer, benchmarkParams.getTimeUnit()));
+            results.add(new ScalarResult("CPU", l_extrametrics1_0.CPU, "#", AggregationPolicy.SUM));
+            results.add(new ScalarResult("ram", l_extrametrics1_0.ram, "#", AggregationPolicy.SUM));
             this.blackhole.evaporate("Yes, I am Stephen Hawking, and know a thing or two about black holes.");
             return results;
         } else
             throw new IllegalStateException("Harness failed to distribute threads among groups properly");
     }
 
-    public static void multiply_sample_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, SampleBuffer buffer, int targetSamples, long opsPerInv, int batchSize, Benchmarking_jmhType l_benchmarking0_G) throws Throwable {
+    public static void multiply_sample_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, SampleBuffer buffer, int targetSamples, long opsPerInv, int batchSize, Benchmarking_jmhType l_benchmarking0_G, ExtraMetrics_jmhType l_extrametrics1_0) throws Throwable {
         long realTime = 0;
         long operations = 0;
         int rnd = (int)System.nanoTime();
@@ -746,25 +462,6 @@ public final class Benchmarking_multiply_jmhTest {
         long time = 0;
         int currentStride = 0;
         do {
-            if (Benchmarking_jmhType.setupInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                try {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (!l_benchmarking0_G.readyInvocation) {
-                        l_benchmarking0_G.readyInvocation = true;
-                    }
-                } catch (Throwable t) {
-                    control.isFailing = true;
-                    throw t;
-                } finally {
-                    Benchmarking_jmhType.setupInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                }
-            } else {
-                while (Benchmarking_jmhType.setupInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (Thread.interrupted()) throw new InterruptedException();
-                }
-            }
-            long rt = System.nanoTime();
             rnd = (rnd * 1664525 + 1013904223);
             boolean sample = (rnd & rndMask) == 0;
             if (sample) {
@@ -780,26 +477,6 @@ public final class Benchmarking_multiply_jmhTest {
                     buffer.half();
                     currentStride = 0;
                     rndMask = (rndMask << 1) + 1;
-                }
-            }
-            realTime += (System.nanoTime() - rt);
-            if (Benchmarking_jmhType.tearInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                try {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (l_benchmarking0_G.readyInvocation) {
-                        l_benchmarking0_G.tearDownInvocation();
-                        l_benchmarking0_G.readyInvocation = false;
-                    }
-                } catch (Throwable t) {
-                    control.isFailing = true;
-                    throw t;
-                } finally {
-                    Benchmarking_jmhType.tearInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                }
-            } else {
-                while (Benchmarking_jmhType.tearInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (Thread.interrupted()) throw new InterruptedException();
                 }
             }
             operations++;
@@ -819,14 +496,15 @@ public final class Benchmarking_multiply_jmhTest {
             this.blackhole = new Blackhole("Today's password is swordfish. I understand instantiating Blackholes directly is dangerous.");
         }
         if (threadParams.getSubgroupIndex() == 0) {
-            Benchmarking_jmhType l_benchmarking0_G = _jmh_tryInit_f_benchmarking0_G(control);
+            ExtraMetrics_jmhType l_extrametrics1_0 = _jmh_tryInit_f_extrametrics1_0(control);
+            Benchmarking_jmhType l_benchmarking0_G = _jmh_tryInit_f_benchmarking0_G(control, l_extrametrics1_0);
 
             control.preSetup();
             if (Benchmarking_jmhType.setupIterationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (!l_benchmarking0_G.readyIteration) {
-                        l_benchmarking0_G.setupInvocation();
+                        l_benchmarking0_G.setupIteration();
                         l_benchmarking0_G.readyIteration = true;
                     }
                 } catch (Throwable t) {
@@ -842,17 +520,19 @@ public final class Benchmarking_multiply_jmhTest {
                 }
             }
 
+            l_extrametrics1_0.CPU = 0;
+            l_extrametrics1_0.ram = 0;
 
             notifyControl.startMeasurement = true;
             RawResults res = new RawResults();
             int batchSize = iterationParams.getBatchSize();
-            multiply_ss_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, batchSize, l_benchmarking0_G);
+            multiply_ss_jmhStub(control, res, benchmarkParams, iterationParams, threadParams, blackhole, notifyControl, startRndMask, batchSize, l_benchmarking0_G, l_extrametrics1_0);
             control.preTearDown();
             if (Benchmarking_jmhType.tearIterationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (l_benchmarking0_G.readyIteration) {
-                        l_benchmarking0_G.tearDownIteration();
+                        l_benchmarking0_G.tearDownInvocation(l_extrametrics1_0);
                         l_benchmarking0_G.readyIteration = false;
                     }
                 } catch (Throwable t) {
@@ -873,7 +553,6 @@ public final class Benchmarking_multiply_jmhTest {
                     try {
                         if (control.isFailing) throw new FailureAssistException();
                         if (l_benchmarking0_G.readyTrial) {
-                            l_benchmarking0_G.tearDownTrial();
                             l_benchmarking0_G.readyTrial = false;
                         }
                     } catch (Throwable t) {
@@ -894,62 +573,26 @@ public final class Benchmarking_multiply_jmhTest {
                 synchronized(this.getClass()) {
                     f_benchmarking0_G = null;
                 }
+                f_extrametrics1_0 = null;
             }
             int opsPerInv = control.benchmarkParams.getOpsPerInvocation();
             long totalOps = opsPerInv;
             BenchmarkTaskResult results = new BenchmarkTaskResult(totalOps, totalOps);
             results.add(new SingleShotResult(ResultRole.PRIMARY, "multiply", res.getTime(), totalOps, benchmarkParams.getTimeUnit()));
+            results.add(new ScalarResult("CPU", l_extrametrics1_0.CPU, "#", AggregationPolicy.SUM));
+            results.add(new ScalarResult("ram", l_extrametrics1_0.ram, "#", AggregationPolicy.SUM));
             this.blackhole.evaporate("Yes, I am Stephen Hawking, and know a thing or two about black holes.");
             return results;
         } else
             throw new IllegalStateException("Harness failed to distribute threads among groups properly");
     }
 
-    public static void multiply_ss_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, int batchSize, Benchmarking_jmhType l_benchmarking0_G) throws Throwable {
+    public static void multiply_ss_jmhStub(InfraControl control, RawResults result, BenchmarkParams benchmarkParams, IterationParams iterationParams, ThreadParams threadParams, Blackhole blackhole, Control notifyControl, int startRndMask, int batchSize, Benchmarking_jmhType l_benchmarking0_G, ExtraMetrics_jmhType l_extrametrics1_0) throws Throwable {
         long realTime = 0;
         result.startTime = System.nanoTime();
         for (int b = 0; b < batchSize; b++) {
             if (control.volatileSpoiler) return;
-            if (Benchmarking_jmhType.setupInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                try {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (!l_benchmarking0_G.readyInvocation) {
-                        l_benchmarking0_G.readyInvocation = true;
-                    }
-                } catch (Throwable t) {
-                    control.isFailing = true;
-                    throw t;
-                } finally {
-                    Benchmarking_jmhType.setupInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                }
-            } else {
-                while (Benchmarking_jmhType.setupInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (Thread.interrupted()) throw new InterruptedException();
-                }
-            }
-            long rt = System.nanoTime();
             l_benchmarking0_G.multiply(blackhole);
-            realTime += (System.nanoTime() - rt);
-            if (Benchmarking_jmhType.tearInvocationMutexUpdater.compareAndSet(l_benchmarking0_G, 0, 1)) {
-                try {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (l_benchmarking0_G.readyInvocation) {
-                        l_benchmarking0_G.tearDownInvocation();
-                        l_benchmarking0_G.readyInvocation = false;
-                    }
-                } catch (Throwable t) {
-                    control.isFailing = true;
-                    throw t;
-                } finally {
-                    Benchmarking_jmhType.tearInvocationMutexUpdater.set(l_benchmarking0_G, 0);
-                }
-            } else {
-                while (Benchmarking_jmhType.tearInvocationMutexUpdater.get(l_benchmarking0_G) == 1) {
-                    if (control.isFailing) throw new FailureAssistException();
-                    if (Thread.interrupted()) throw new InterruptedException();
-                }
-            }
         }
         result.stopTime = System.nanoTime();
         result.realTime = realTime;
@@ -958,7 +601,7 @@ public final class Benchmarking_multiply_jmhTest {
     
     static volatile Benchmarking_jmhType f_benchmarking0_G;
     
-    Benchmarking_jmhType _jmh_tryInit_f_benchmarking0_G(InfraControl control) throws Throwable {
+    Benchmarking_jmhType _jmh_tryInit_f_benchmarking0_G(InfraControl control, ExtraMetrics_jmhType l_extrametrics1_0) throws Throwable {
         Benchmarking_jmhType val = f_benchmarking0_G;
         if (val != null) {
             return val;
@@ -982,6 +625,18 @@ public final class Benchmarking_multiply_jmhTest {
                 control.isFailing = true;
                 throw t;
             }
+        }
+        return val;
+    }
+    
+    ExtraMetrics_jmhType f_extrametrics1_0;
+    
+    ExtraMetrics_jmhType _jmh_tryInit_f_extrametrics1_0(InfraControl control) throws Throwable {
+        if (control.isFailing) throw new FailureAssistException();
+        ExtraMetrics_jmhType val = f_extrametrics1_0;
+        if (val == null) {
+            val = new ExtraMetrics_jmhType();
+            f_extrametrics1_0 = val;
         }
         return val;
     }

@@ -4,8 +4,6 @@ dontinline,*.*_sample_jmhStub
 dontinline,*.*_ss_jmhStub
 dontinline,*.*_thrpt_jmhStub
 inline,project/Benchmarking.multiply
-inline,project/Benchmarking.setupInvocation
+inline,project/Benchmarking.setupIteration
 inline,project/Benchmarking.setupTrial
 inline,project/Benchmarking.tearDownInvocation
-inline,project/Benchmarking.tearDownIteration
-inline,project/Benchmarking.tearDownTrial
