@@ -20,29 +20,39 @@ import java.util.concurrent.TimeUnit;
 
 public class Benchmarking {
 
-    @Param({"512", "1024"})
-    int n;
-
     private Matrix matrix;
-    private OperatingSystemMXBean os;
-    private SystemInfo si;
-    private GlobalMemory memory;
+    private final OperatingSystemMXBean os;
+    private final SystemInfo si;
+    private final GlobalMemory memory;
 
     long realBefore;
     long cpuBefore;
 
-    @Setup(Level.Trial)
-    public void setupTrial() {
-        // Matrix für die gegebene Größe erzeugen
-        matrix = new Matrix(new Random(), n);
+    private final int MB = 1024 * 1024;
 
-        // CPU Zeit Zugriff
+    public Benchmarking() {
         os = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-
         si = new SystemInfo();
         memory = si.getHardware().getMemory();
+
+        var proc = si.getOperatingSystem().getCurrentProcess();
+        long initUsedMb  = (proc == null ? 0L : proc.getResidentSetSize() / MB);
+        long totalMb = memory.getTotal() / MB;
+
+        System.out.printf(
+                "Initial memory  initial used=%d MB  total physical=%d MB%n%n",
+                initUsedMb,
+                totalMb
+        );
     }
 
+    @Param({"512", "1024"})
+    int n;
+
+    @Setup(Level.Trial)
+    public void setupTrial() {
+        matrix = new Matrix(new Random(), n);
+    }
 
     @Setup(Level.Iteration)
     public void setupIteration() {
