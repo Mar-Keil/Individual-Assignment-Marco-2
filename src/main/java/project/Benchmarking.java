@@ -23,18 +23,17 @@ public class Benchmarking {
     private Matrix matrix;
     private final OperatingSystemMXBean os;
     private final SystemInfo si;
-    private final GlobalMemory memory;
 
     private long realBefore;
     private long cpuBefore;
 
-    private long initUsedMb;
+    private final long initUsedMb;
     private final int MB = 1024 * 1024;
 
     public Benchmarking() {
         os = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
         si = new SystemInfo();
-        memory = si.getHardware().getMemory();
+        GlobalMemory memory = si.getHardware().getMemory();
 
         var proc = si.getOperatingSystem().getCurrentProcess();
         initUsedMb  = (proc == null ? 0L : proc.getResidentSetSize() / MB);
