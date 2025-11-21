@@ -51,7 +51,7 @@ public class Benchmarking {
     @Param({"512", "1024"})
     int n;
 
-    @Param({"SIMPLE", "FLAT_UNROLLED"})
+    @Param({"SIMPLE", "FLAT_UNROLLED", "STRASSEN"})
     MatrixType type;
 
     @Setup(Level.Trial)
@@ -63,6 +63,9 @@ public class Benchmarking {
                 break;
             case FLAT_UNROLLED:
                 matrix = new FlatUnrolled(rnd, n);
+                break;
+            case STRASSEN:
+                matrix = new Strassen();
                 break;
         }
     }
