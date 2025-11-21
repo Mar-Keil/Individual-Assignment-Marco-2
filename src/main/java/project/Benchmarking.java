@@ -6,7 +6,8 @@ import org.openjdk.jmh.infra.Blackhole;
 import com.sun.management.OperatingSystemMXBean;
 import oshi.SystemInfo;
 import oshi.hardware.GlobalMemory;
-import project.matMul.Simple;
+
+import project.matMul.*;
 
 import java.lang.management.ManagementFactory;
 import java.util.Random;
@@ -21,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Benchmarking {
 
-    private Simple simple;
+    private IMatrix matrix;
     private final OperatingSystemMXBean os;
     private final SystemInfo si;
 
@@ -50,9 +51,20 @@ public class Benchmarking {
     @Param({"512", "1024"})
     int n;
 
+    @Param({"SIMPLE", "FLAT_UNROLLED"})
+    MatrixType type;
+
     @Setup(Level.Trial)
     public void setupTrial() {
-        simple = new Simple(new Random(), n);
+        Random rnd = new Random();
+        switch (type){
+            case SIMPLE:
+                matrix = new Simple(rnd, n);
+                break;
+            case FLAT_UNROLLED:
+                matrix = new FlatUnrolled(rnd, n);
+                break;
+        }
     }
 
     @Setup(Level.Iteration)
@@ -64,8 +76,8 @@ public class Benchmarking {
     @Benchmark
     public void multiply(Blackhole bh) {
 
-        simple.multiply();
-        bh.consume(simple.peek());
+        matrix.multiply();
+        bh.consume(matrix.peek());
     }
 
     @TearDown(Level.Iteration)
