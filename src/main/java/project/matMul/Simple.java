@@ -1,15 +1,15 @@
-package project;
+package project.matMul;
 
 import java.util.Random;
 
-public class Matrix {
+public class Simple implements IMatrix{
 
     private final int size;
     private final double[][] a;
     private final double[][] b;
     private final double[][] c;
 
-    public Matrix (Random rnd, int size) {
+    public Simple(Random rnd, int size) {
         this.size = size;
         this.a = new double[size][size];
         this.b = new double[size][size];

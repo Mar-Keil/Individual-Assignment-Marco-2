@@ -6,6 +6,7 @@ import org.openjdk.jmh.infra.Blackhole;
 import com.sun.management.OperatingSystemMXBean;
 import oshi.SystemInfo;
 import oshi.hardware.GlobalMemory;
+import project.matMul.Simple;
 
 import java.lang.management.ManagementFactory;
 import java.util.Random;
@@ -20,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Benchmarking {
 
-    private Matrix matrix;
+    private Simple simple;
     private final OperatingSystemMXBean os;
     private final SystemInfo si;
 
@@ -51,7 +52,7 @@ public class Benchmarking {
 
     @Setup(Level.Trial)
     public void setupTrial() {
-        matrix = new Matrix(new Random(), n);
+        simple = new Simple(new Random(), n);
     }
 
     @Setup(Level.Iteration)
@@ -63,8 +64,8 @@ public class Benchmarking {
     @Benchmark
     public void multiply(Blackhole bh) {
 
-        matrix.multiply();
-        bh.consume(matrix.peek());
+        simple.multiply();
+        bh.consume(simple.peek());
     }
 
     @TearDown(Level.Iteration)

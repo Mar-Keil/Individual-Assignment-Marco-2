@@ -2,7 +2,7 @@ package project.matMul;
 
 import java.util.Random;
 
-public class FlatUnrolled {
+public class FlatUnrolled implements IMatrix{
 
     private final int size;
     private final double[] a;
