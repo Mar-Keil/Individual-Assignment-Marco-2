@@ -25,6 +25,7 @@ public class Benchmarking {
     private IMatrix matrix;
     private final OperatingSystemMXBean os;
     private final SystemInfo si;
+    private final RndWithNull rnd;
 
     private long realBefore;
     private long cpuBefore;
@@ -33,8 +34,9 @@ public class Benchmarking {
     private final int MB = 1024 * 1024;
 
     public Benchmarking() {
-        os = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-        si = new SystemInfo();
+        this.rnd = new RndWithNull();
+        this.os = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        this.si = new SystemInfo();
         GlobalMemory memory = si.getHardware().getMemory();
 
         var proc = si.getOperatingSystem().getCurrentProcess();
@@ -56,7 +58,6 @@ public class Benchmarking {
 
     @Setup(Level.Trial)
     public void setupTrial() {
-        Random rnd = new Random();
         switch (type){
             case SIMPLE:
                 matrix = new Simple(rnd, n);
@@ -78,7 +79,6 @@ public class Benchmarking {
 
     @Benchmark
     public void multiply(Blackhole bh) {
-
         matrix.multiply();
         bh.consume(matrix.peek());
     }

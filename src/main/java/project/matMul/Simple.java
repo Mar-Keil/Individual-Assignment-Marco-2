@@ -1,6 +1,6 @@
 package project.matMul;
 
-import java.util.Random;
+import project.RndWithNull;
 
 public class Simple implements IMatrix{
 
@@ -9,16 +9,14 @@ public class Simple implements IMatrix{
     private final double[][] b;
     private final double[][] c;
 
-    public Simple(Random rnd, int size) {
+    public Simple(RndWithNull rnd, int size) {
         this.size = size;
-        this.a = new double[size][size];
-        this.b = new double[size][size];
+        this.a = new double[size][];
+        this.b = new double[size][];
         this.c = new double[size][size];
         for (int r = 0; r < size; r++) {
-            for (int j = 0; j < size; j++) {
-                this.a[r][j] = rnd.nextDouble();
-                this.b[r][j] = rnd.nextDouble();
-            }
+            this.a[r] = rnd.fill(size);
+            this.b[r] = rnd.fill(size);
         }
     }
 

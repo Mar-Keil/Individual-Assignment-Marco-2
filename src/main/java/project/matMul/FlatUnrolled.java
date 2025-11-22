@@ -1,5 +1,7 @@
 package project.matMul;
 
+import project.RndWithNull;
+
 import java.util.Random;
 
 public class FlatUnrolled implements IMatrix{
@@ -9,25 +11,15 @@ public class FlatUnrolled implements IMatrix{
     private final double[] b;
     private final double[] c;
 
-    public FlatUnrolled(Random rnd, int size) {
+    public FlatUnrolled(RndWithNull rnd, int size) {
         this.size = size;
-        this.a = new double[size * size];
-        this.b = new double[size * size];
+        this.a = rnd.fill(size * size);
+        this.b = rnd.fill(size * size);
         this.c = new double[size * size];
-
-        for (int i = 0; i < size * size; i++) {
-            a[i] = rnd.nextDouble();
-            b[i] = rnd.nextDouble();
-        }
-    }
-
-    private int idx(int row, int col) {
-        return row * size + col;
     }
 
     public void multiply() {
-        
-        // Wir benutzen i k j Reihenfolge
+
         for (int i = 0; i < size; i++) {
             int ci = i * size;
 
@@ -38,7 +30,7 @@ public class FlatUnrolled implements IMatrix{
                 int j = 0;
 
                 for (; j <= size - 4; j += 4) {
-                    c[ci + j]     += aik * b[bk + j];
+                    c[ci + j] += aik * b[bk + j];
                     c[ci + j + 1] += aik * b[bk + j + 1];
                     c[ci + j + 2] += aik * b[bk + j + 2];
                     c[ci + j + 3] += aik * b[bk + j + 3];
