@@ -52,7 +52,7 @@ public class Benchmarking {
     @Param({"512", "1024"})
     int size;
 
-    @Param({"SIMPLE", "FLAT_UNROLLED"/*, "STRASSEN"*/})
+    @Param({"SIMPLE", "FLAT_UNROLLED", "STRASSEN"})
     MatrixType type;
 
     @Setup(Level.Trial)

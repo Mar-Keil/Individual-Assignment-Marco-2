@@ -615,9 +615,9 @@ public final class Benchmarking_multiply_jmhTest {
             }
             val = new Benchmarking_jmhType();
             Field f;
-            f = project.Benchmarking.class.getDeclaredField("n");
+            f = project.Benchmarking.class.getDeclaredField("size");
             f.setAccessible(true);
-            f.set(val, Integer.valueOf(control.getParam("n")));
+            f.set(val, Integer.valueOf(control.getParam("size")));
             f = project.Benchmarking.class.getDeclaredField("type");
             f.setAccessible(true);
             f.set(val, project.matMul.MatrixType.valueOf(control.getParam("type")));

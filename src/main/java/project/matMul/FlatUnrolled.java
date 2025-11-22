@@ -2,8 +2,6 @@ package project.matMul;
 
 import project.RndWithNull;
 
-import java.util.Random;
-
 public class FlatUnrolled implements IMatrix{
 
     private final int size;
