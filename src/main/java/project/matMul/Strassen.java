@@ -19,13 +19,11 @@ public class Strassen implements IMatrix {
         this.b = rnd.fill(size * size, percentage);
         this.c = new double[size * size];
 
-        // Workspace groß genug für alle Ebenen (3*n^2 sichert alles ab)
         this.W = new double[3 * size * size];
     }
 
     @Override
     public void multiply() {
-        // Start mit vollständigen Matrizen a und b, Ergebnis nach c
         strassen(a, 0, size,
                  b, 0, size,
                  c, 0, size,
@@ -42,22 +40,11 @@ public class Strassen implements IMatrix {
         return c[0];
     }
 
-    /**
-     * Verallgemeinerte Strassen Rekursion auf beliebigen Arrays A, B, C
-     * mit jeweils eigenem Zeilenabstand (stride).
-     *
-     * A: Eingabematrix (n x n), Startindex a0, Zeilenabstand strideA
-     * B: Eingabematrix (n x n), Startindex b0, Zeilenabstand strideB
-     * C: Ausgabematrix (n x n), Startindex c0, Zeilenabstand strideC
-     * n: aktuelle Blockgröße
-     * w0: Startindex für Workspace in W
-     */
     private void strassen(double[] A, int a0, int strideA,
                           double[] B, int b0, int strideB,
                           double[] C, int c0, int strideC,
                           int n, int w0) {
 
-        // Abbruch: kleine Blöcke oder ungerade Größe klassisch berechnen
         if (n <= THRESHOLD || (n & 1) != 0) {
             multiplyClassic(A, a0, strideA,
                             B, b0, strideB,
@@ -68,25 +55,21 @@ public class Strassen implements IMatrix {
 
         int k = n / 2;
 
-        // A Quadranten
         int a11 = a0;
         int a12 = a0 + k;
         int a21 = a0 + k * strideA;
         int a22 = a21 + k;
 
-        // B Quadranten
         int b11 = b0;
         int b12 = b0 + k;
         int b21 = b0 + k * strideB;
         int b22 = b21 + k;
 
-        // C Quadranten
         int c11 = c0;
         int c12 = c0 + k;
         int c21 = c0 + k * strideC;
         int c22 = c21 + k;
 
-        // Workspace Offsets (alle k x k, dicht gespeichert mit stride = k)
         int M1 = w0;
         int M2 = M1 + k * k;
         int M3 = M2 + k * k;
@@ -100,7 +83,6 @@ public class Strassen implements IMatrix {
 
         int nextW = T2 + k * k;
 
-        // M1 = (A11 + A22) * (B11 + B22)
         add(A, a11, strideA, A, a22, strideA,
             W, T1, k,
             k);
@@ -112,7 +94,6 @@ public class Strassen implements IMatrix {
                  W, M1, k,
                  k, nextW);
 
-        // M2 = (A21 + A22) * B11
         add(A, a21, strideA, A, a22, strideA,
             W, T1, k,
             k);
@@ -121,7 +102,6 @@ public class Strassen implements IMatrix {
                  W, M2, k,
                  k, nextW);
 
-        // M3 = A11 * (B12 - B22)
         sub(B, b12, strideB, B, b22, strideB,
             W, T2, k,
             k);
@@ -130,7 +110,6 @@ public class Strassen implements IMatrix {
                  W, M3, k,
                  k, nextW);
 
-        // M4 = A22 * (B21 - B11)
         sub(B, b21, strideB, B, b11, strideB,
             W, T2, k,
             k);
@@ -139,7 +118,6 @@ public class Strassen implements IMatrix {
                  W, M4, k,
                  k, nextW);
 
-        // M5 = (A11 + A12) * B22
         add(A, a11, strideA, A, a12, strideA,
             W, T1, k,
             k);
@@ -148,7 +126,6 @@ public class Strassen implements IMatrix {
                  W, M5, k,
                  k, nextW);
 
-        // M6 = (A21 - A11) * (B11 + B12)
         sub(A, a21, strideA, A, a11, strideA,
             W, T1, k,
             k);
@@ -160,7 +137,6 @@ public class Strassen implements IMatrix {
                  W, M6, k,
                  k, nextW);
 
-        // M7 = (A12 - A22) * (B21 + B22)
         sub(A, a12, strideA, A, a22, strideA,
             W, T1, k,
             k);
@@ -172,16 +148,11 @@ public class Strassen implements IMatrix {
                  W, M7, k,
                  k, nextW);
 
-        // Ergebnisse in C zusammenführen
         combine(C, c11, c12, c21, c22, strideC,
                 W, M1, M2, M3, M4, M5, M6, M7,
                 k);
     }
 
-    /**
-     * Klassische Matrixmultiplikation für einen n x n Block:
-     * C = A * B
-     */
     private void multiplyClassic(double[] A, int a0, int strideA,
                                  double[] B, int b0, int strideB,
                                  double[] C, int c0, int strideC,
