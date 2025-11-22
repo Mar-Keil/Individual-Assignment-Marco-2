@@ -10,7 +10,6 @@ import oshi.hardware.GlobalMemory;
 import project.matMul.*;
 
 import java.lang.management.ManagementFactory;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
@@ -51,22 +50,22 @@ public class Benchmarking {
     }
 
     @Param({"512", "1024"})
-    int n;
+    int size;
 
-    @Param({"SIMPLE", "FLAT_UNROLLED", "STRASSEN"})
+    @Param({"SIMPLE", "FLAT_UNROLLED"/*, "STRASSEN"*/})
     MatrixType type;
 
     @Setup(Level.Trial)
     public void setupTrial() {
         switch (type){
             case SIMPLE:
-                matrix = new Simple(rnd, n);
+                matrix = new Simple(rnd, size);
                 break;
             case FLAT_UNROLLED:
-                matrix = new FlatUnrolled(rnd, n);
+                matrix = new FlatUnrolled(rnd, size);
                 break;
             case STRASSEN:
-                matrix = new Strassen();
+                matrix = new Strassen(rnd, size);
                 break;
         }
     }

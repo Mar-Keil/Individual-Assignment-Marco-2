@@ -20,6 +20,7 @@ public class Simple implements IMatrix{
         }
     }
 
+    @Override
     public void multiply() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -32,6 +33,7 @@ public class Simple implements IMatrix{
         }
     }
 
+    @Override
     public double peek() {
         return c[0][0];
     }

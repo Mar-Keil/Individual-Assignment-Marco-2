@@ -18,6 +18,7 @@ public class FlatUnrolled implements IMatrix{
         this.c = new double[size * size];
     }
 
+    @Override
     public void multiply() {
 
         for (int i = 0; i < size; i++) {
@@ -43,6 +44,7 @@ public class FlatUnrolled implements IMatrix{
         }
     }
 
+    @Override
     public double peek() {
         return c[0];
     }
