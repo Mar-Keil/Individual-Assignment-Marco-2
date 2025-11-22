@@ -2,6 +2,7 @@ package project.matMul;
 
 public interface IMatrix {
 
-    public void multiply();
-    public double peek();
+    void multiply();
+    void clearC();
+    double peek();
 }

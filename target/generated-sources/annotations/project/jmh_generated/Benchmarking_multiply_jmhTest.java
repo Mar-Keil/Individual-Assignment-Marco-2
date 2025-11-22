@@ -615,6 +615,9 @@ public final class Benchmarking_multiply_jmhTest {
             }
             val = new Benchmarking_jmhType();
             Field f;
+            f = project.Benchmarking.class.getDeclaredField("percentage");
+            f.setAccessible(true);
+            f.set(val, Integer.valueOf(control.getParam("percentage")));
             f = project.Benchmarking.class.getDeclaredField("size");
             f.setAccessible(true);
             f.set(val, Integer.valueOf(control.getParam("size")));

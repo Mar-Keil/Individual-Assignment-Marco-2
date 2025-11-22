@@ -49,23 +49,26 @@ public class Benchmarking {
         );
     }
 
-    @Param({"512", "1024"})
+    @Param({"512"/*, "1024"*/})
     int size;
 
     @Param({"SIMPLE", "FLAT_UNROLLED", "STRASSEN"})
     MatrixType type;
 
+    @Param({"10", "50", "90"})
+    int percentage;
+
     @Setup(Level.Trial)
     public void setupTrial() {
         switch (type){
             case SIMPLE:
-                matrix = new Simple(rnd, size);
+                matrix = new Simple(rnd, size, percentage);
                 break;
             case FLAT_UNROLLED:
-                matrix = new FlatUnrolled(rnd, size);
+                matrix = new FlatUnrolled(rnd, size, percentage);
                 break;
             case STRASSEN:
-                matrix = new Strassen(rnd, size);
+                matrix = new Strassen(rnd, size, percentage);
                 break;
         }
     }
@@ -79,6 +82,7 @@ public class Benchmarking {
     @Benchmark
     public void multiply(Blackhole bh) {
         matrix.multiply();
+        matrix.clearC();
         bh.consume(matrix.peek());
     }
 
@@ -97,4 +101,4 @@ public class Benchmarking {
 
 // cd IdeaProjects/Individual-Assignment-Marco-2
 // mvn -q -DskipTests package
-// java -jar target/benchmarks.jar project.Benchmarking.multiply
+// caffeinate java -jar target/benchmarks.jar project.Benchmarking.multiply

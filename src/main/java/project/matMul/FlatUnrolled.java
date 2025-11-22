@@ -2,6 +2,8 @@ package project.matMul;
 
 import project.RndWithNull;
 
+import java.util.Arrays;
+
 public class FlatUnrolled implements IMatrix{
 
     private final int size;
@@ -9,10 +11,10 @@ public class FlatUnrolled implements IMatrix{
     private final double[] b;
     private final double[] c;
 
-    public FlatUnrolled(RndWithNull rnd, int size) {
+    public FlatUnrolled(RndWithNull rnd, int size, int percentage) {
         this.size = size;
-        this.a = rnd.fill(size * size);
-        this.b = rnd.fill(size * size);
+        this.a = rnd.fill(size * size, percentage);
+        this.b = rnd.fill(size * size, percentage);
         this.c = new double[size * size];
     }
 
@@ -40,6 +42,11 @@ public class FlatUnrolled implements IMatrix{
                 }
             }
         }
+    }
+
+    @Override
+    public void clearC(){
+        Arrays.fill(c, 0.0);
     }
 
     @Override
