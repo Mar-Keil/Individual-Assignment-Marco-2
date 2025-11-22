@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.SECONDS)
-@Warmup(iterations = 2, time = 3, timeUnit = TimeUnit.SECONDS)
-@Measurement(iterations = 3, time = 5, timeUnit = TimeUnit.SECONDS)
-@Fork(1)
+@Warmup(iterations = 3, time = 10, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 10, time = 10, timeUnit = TimeUnit.SECONDS)
+@Fork(2)
 
 public class Benchmarking {
 
@@ -49,26 +49,26 @@ public class Benchmarking {
         );
     }
 
-    @Param({"512"/*, "1024"*/})
+    @Param({"512", "1024", "2048", "4096"})
     int size;
 
     @Param({"SIMPLE", "FLAT_UNROLLED", "STRASSEN"})
     MatrixType type;
 
     @Param({"10", "50", "90"})
-    int percentage;
+    int zeroPercentage;
 
     @Setup(Level.Trial)
     public void setupTrial() {
         switch (type){
             case SIMPLE:
-                matrix = new Simple(rnd, size, percentage);
+                matrix = new Simple(rnd, size, zeroPercentage);
                 break;
             case FLAT_UNROLLED:
-                matrix = new FlatUnrolled(rnd, size, percentage);
+                matrix = new FlatUnrolled(rnd, size, zeroPercentage);
                 break;
             case STRASSEN:
-                matrix = new Strassen(rnd, size, percentage);
+                matrix = new Strassen(rnd, size, zeroPercentage);
                 break;
         }
     }
@@ -101,4 +101,4 @@ public class Benchmarking {
 
 // cd IdeaProjects/Individual-Assignment-Marco-2
 // mvn -q -DskipTests package
-// caffeinate java -jar target/benchmarks.jar project.Benchmarking.multiply
+// caffeinate java -jar target/benchmarks.jar project.Benchmarking.multiply -rf csv -rff results.csv

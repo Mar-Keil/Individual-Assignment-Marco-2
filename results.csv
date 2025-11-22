@@ -1,0 +1,10 @@
+"Benchmark","Mode","Threads","Samples","Score","Score Error (99,9%)","Unit","Param: percentage","Param: size","Param: type"
+"project.Benchmarking.multiply","avgt",1,3,"0,091953","0,007438","s/op",10,512,SIMPLE
+"project.Benchmarking.multiply:CPU","avgt",1,3,"2,999096",NaN,"#",10,512,SIMPLE
+"project.Benchmarking.multiply:RAM","avgt",1,3,"27,000000",NaN,"#",10,512,SIMPLE
+"project.Benchmarking.multiply","avgt",1,3,"0,027841","0,000093","s/op",10,512,FLAT_UNROLLED
+"project.Benchmarking.multiply:CPU","avgt",1,3,"3,002890",NaN,"#",10,512,FLAT_UNROLLED
+"project.Benchmarking.multiply:RAM","avgt",1,3,"28,000000",NaN,"#",10,512,FLAT_UNROLLED
+"project.Benchmarking.multiply","avgt",1,3,"0,050665","0,000408","s/op",10,512,STRASSEN
+"project.Benchmarking.multiply:CPU","avgt",1,3,"3,002934",NaN,"#",10,512,STRASSEN
+"project.Benchmarking.multiply:RAM","avgt",1,3,"47,000000",NaN,"#",10,512,STRASSEN
